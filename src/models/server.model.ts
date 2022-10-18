@@ -52,7 +52,7 @@ export class Server {
         sockets.handleEvents();
 
         // Inicializar servidor
-        this.server.listen( this.port, () => {
+        this.server.listen( this.port, '10.1.41.23', () => {
             console.log(`Servidor corriendo en el puerto: ${ this.port }`)
         })
     }
