@@ -3,11 +3,10 @@ import { validate } from 'class-validator';
 import { Request, Response } from 'express';
 import * as bcrypt from 'bcryptjs';
 import { CreateUserDto, LoginUserDto } from '../dtos';
-import { User } from '../entities/user.entity';
 import { mapErrors } from '../helpers/map-errors.helper';
 import { generedJWT } from '../helpers/jwt.helper';
 import { RequestWithUserId } from '../interfaces/request.interface';
-
+import { User } from '../entities/user.entity';
 
 export const register = async ( req: Request, res: Response) => {
     
@@ -112,7 +111,7 @@ export const renew = async ( req: RequestWithUserId, res: Response) => {
 
     const accessToken = await generedJWT( id! );
 
-    const user = await User.findOneBy({ id });
+    const user = await User.findOne({ id });
 
     if ( !user ) {
         return res.status(404).json({

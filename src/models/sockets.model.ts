@@ -1,7 +1,6 @@
 
 import { Socket } from 'socket.io';
 import { comprobarJWT } from '../helpers/jwt.helper';
-import { addMessage } from '../sockets/messages.events';
 import { getAllUsers, userConnected, userDisconnected } from '../sockets/users.events';
 
 export class Sockets {
@@ -35,9 +34,9 @@ export class Sockets {
             // Escuchar mensaje personal 
             socket.on('personal-message', async( payload ) => {
                 // Grabar mensaje en base de datos
-                const message = await addMessage( payload )
-                this.io.to( payload.to ).emit('personal-message', message);
-                this.io.to( payload.from ).emit('personal-message', message);
+                // const message = await addMessage( payload )
+                // this.io.to( payload.to ).emit('personal-message', message);
+                // this.io.to( payload.from ).emit('personal-message', message);
             })
 
 

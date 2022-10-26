@@ -5,7 +5,7 @@ import { User } from "../entities/user.entity"
 
 export const userConnected = async ( id: string ) => {
     
-    const user = await User.findOneBy({ id });
+    const user = await User.findOne({ id });
 
     if ( ! user ) return null;
 
@@ -21,7 +21,7 @@ export const userConnected = async ( id: string ) => {
 
 export const userDisconnected = async ( id: string ) => {
     
-    const user = await User.findOneBy({ id });
+    const user = await User.findOne({ id });
 
     if ( ! user ) return null;
 

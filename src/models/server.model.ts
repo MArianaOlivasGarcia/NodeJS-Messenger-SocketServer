@@ -11,7 +11,6 @@ import { dbConnection } from '../database/config';
 
 // Rutas
 import authRoutes from '../routes/auth.routes'
-import messagesRoutes from '../routes/messages.routes'
 
 export class Server {
 
@@ -35,7 +34,6 @@ export class Server {
         this.app.use( express.json() );
 
         // Habilitar rutas
-        this.app.use( '/api/messages', messagesRoutes);
         this.app.use( '/api/auth', authRoutes);
         this.app.use( express.static( path.resolve( __dirname, '../public') ) );
     }
@@ -52,7 +50,7 @@ export class Server {
         sockets.handleEvents();
 
         // Inicializar servidor
-        this.server.listen( this.port, '10.1.41.23', () => {
+        this.server.listen( this.port, () => {
             console.log(`Servidor corriendo en el puerto: ${ this.port }`)
         })
     }
