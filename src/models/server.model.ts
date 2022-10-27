@@ -11,6 +11,9 @@ import { dbConnection } from '../database/config';
 
 // Rutas
 import authRoutes from '../routes/auth.routes'
+import competitorsRoutes from '../routes/competitors.routes'
+import locationsRoutes from '../routes/location.routes'
+import customersRoutes from '../routes/customers.routes'
 
 export class Server {
 
@@ -25,7 +28,7 @@ export class Server {
 
     middlewares() {
 
-        // this.app.use(morgan('dev'))
+        this.app.use(morgan('dev'))
 
         // Habilitar CORS
         this.app.use(cors())
@@ -35,6 +38,11 @@ export class Server {
 
         // Habilitar rutas
         this.app.use( '/api/auth', authRoutes);
+        this.app.use( '/api/competitors', competitorsRoutes);
+        this.app.use( '/api/locations', locationsRoutes);
+        this.app.use( '/api/customers', customersRoutes);
+
+        // Carpeta Publica
         this.app.use( express.static( path.resolve( __dirname, '../public') ) );
     }
 

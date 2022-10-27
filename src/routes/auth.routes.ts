@@ -1,5 +1,3 @@
-
-
 import { Router } from 'express';
 import { login, register, renew } from '../controllers/auth.controllers';
 import { verifyJwt } from '../middlewares/verify-jwt.middleware';
