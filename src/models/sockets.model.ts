@@ -17,18 +17,18 @@ export class Sockets {
         this.io.on('connection', async( socket: Socket ) => {
             
             // Validar accessToken
-            const [ isValid, id ] = comprobarJWT( socket.handshake.query['Authorization'] as string );
+            // const [ isValid, id ] = comprobarJWT( socket.handshake.query['Authorization'] as string );
 
-            if ( !isValid ) {
-                console.log('Socket no identificado')
-                return socket.disconnect();
-            }
+            // if ( !isValid ) {
+            //     console.log('Socket no identificado')
+            //     return socket.disconnect();
+            // }
 
-            console.log('Cliente conectado', id )
-            await userConnected( id as string )
+            console.log('Cliente conectado' )
+            // await userConnected( as string )
 
-            // Unir al usuario a su sala
-            socket.join( id as string );
+            // // Unir al usuario a su sala
+            // socket.join( id as string );
 
 
             // Escuchar mensaje personal 
@@ -39,15 +39,19 @@ export class Sockets {
                 // this.io.to( payload.from ).emit('personal-message', message);
             })
 
+            socket.emit('message', {
+                msg:'hola mariam'
+            });
+
 
             // Emitir usuarios conectados a TODOS
-            this.io.emit('list-users', await getAllUsers( id as string ));
+            // this.io.emit('list-users', await getAllUsers( id as string ));
 
-            socket.on('disconnect', async ( reason ) => {
-                console.log('Cliente desconectado', {id, reason})
-                await userDisconnected( id as string )
-                this.io.emit('list-users', await getAllUsers( id as string ));
-            })
+            // socket.on('disconnect', async ( reason ) => {
+            //     console.log('Cliente desconectado', {id, reason})
+            //     await userDisconnected( id as string )
+            //     this.io.emit('list-users', await getAllUsers( id as string ));
+            // })
         })
 
 

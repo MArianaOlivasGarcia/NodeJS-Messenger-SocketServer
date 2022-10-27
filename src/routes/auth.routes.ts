@@ -9,7 +9,8 @@ router.post('/register', register )
 
 router.post('/login', login )
 
-router.get('/renew', verifyJwt , renew )
+// router.get('/renew', verifyJwt , renew )
+router.get('/renew',renew )
 
 
 export default router;

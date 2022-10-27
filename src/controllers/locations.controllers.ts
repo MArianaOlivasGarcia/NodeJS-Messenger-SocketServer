@@ -1,48 +1,168 @@
 import { request, response } from "express";
 import { Location } from "../entities/locations.entity";
 
-export const getLocations = async(req = request,res = response) =>{
+export const getLocations = async (req = request, res = response) => {
+  const [total, locations] = await Promise.all([
+    Location.countDocuments(),
+    Location.find(),
+  ]);
 
-    const [total,locations] = await Promise.all([
-        Location.countDocuments(),
-        Location.find(),
-    ]);
-    
-    if(!locations){
-        return res.status(400).json({
-            status:false,
-            msg:'Locations Not Founded'
-        });
-    }
+  if (!locations) {
+    return res.status(400).json({
+      status: false,
+      msg: "Locations Not Founded",
+    });
+  }
+
+  res.json({
+    status: true,
+    total,
+    locations,
+    polygons: [
+      {
+        color: "#ffff00",
+        coords: [
+            { lat: 25.725619, lng: -100.331198 },
+      { lat: 25.723080, lng: -100.330331 },
+      { lat: 25.726791, lng: -100.322744 },
+      { lat: 25.729133, lng: -100.316928 },
+      { lat: 25.731113, lng: -100.306378 },
+      { lat: 25.731311, lng: -100.298026 },
+      { lat: 25.722203, lng: -100.293336 },
+      { lat: 25.711275, lng: -100.277562 },
+      { lat: 25.692504, lng: -100.268578 },
+      { lat: 25.686013, lng: -100.268578 },
+      { lat: 25.675779, lng: -100.277696 },
+      { lat: 25.667285, lng: -100.297310 },
+      { lat: 25.668710, lng: -100.299143 },
+      { lat: 25.666699, lng: -100.304164 },
+      { lat: 25.668594, lng: -100.309014 },
+      { lat: 25.672191, lng: -100.313949 },
+      { lat: 25.676136, lng: -100.314550 },
+      { lat: 25.679927, lng: -100.318412 },
+      { lat: 25.687275, lng: -100.327124 },
+      { lat: 25.696568, lng: -100.328916 },
+        ],
+      },
+      {
+        color: "#ff0000",
+        coords: [
+          { lng: -100.2945365, lat: 25.7182167 },
+          { lng: -100.3024259, lat: 25.7156238 },
+          { lng: -100.288693, lat: 25.7094373 },
+          { lng: -100.2807966, lat: 25.7075813 },
+          { lng: -100.2704969, lat: 25.7092826 },
+          { lng: -100.2665487, lat: 25.7067306 },
+          { lng: -100.2624288, lat: 25.7110613 },
+          { lng: -100.2640666, lat: 25.7157809 },
+          { lng: -100.2662982, lat: 25.718758 },
+          { lng: -100.2672852, lat: 25.722663 },
+          { lng: -100.2663411, lat: 25.723243 },
+          { lng: -100.2667273, lat: 25.7249054 },
+          { lng: -100.2674998, lat: 25.7249054 },
+          { lng: -100.2677573, lat: 25.725524 },
+          { lng: -100.2690447, lat: 25.7247895 },
+          { lng: -100.2705468, lat: 25.7274184 },
+          { lng: -100.2709759, lat: 25.7286169 },
+          { lng: -100.2702893, lat: 25.7296608 },
+          { lng: -100.2713622, lat: 25.7298541 },
+          { lng: -100.2714051, lat: 25.7314778 },
+          { lng: -100.2719201, lat: 25.7329469 },
+          { lng: -100.2724351, lat: 25.7342613 },
+          { lng: -100.2729071, lat: 25.7332948 },
+          { lng: -100.2752246, lat: 25.7334108 },
+          { lng: -100.277542, lat: 25.732367 },
+          { lng: -100.2783574, lat: 25.7315938 },
+          { lng: -100.2796019, lat: 25.7322123 },
+          { lng: -100.2805461, lat: 25.732019 },
+          { lng: -100.281061, lat: 25.7325989 },
+          { lng: -100.2826918, lat: 25.7335267 },
+          { lng: -100.283593, lat: 25.7324829 },
+          { lng: -100.2843655, lat: 25.7323283 },
+          { lng: -100.284108, lat: 25.7295834 },
+          { lng: -100.2855672, lat: 25.7295834 },
+          { lng: -100.2856101, lat: 25.727921 },
+          { lng: -100.2863396, lat: 25.7274184 },
+          { lng: -100.2888716, lat: 25.7294675 },
+          { lng: -100.2908028, lat: 25.7251374 },
+          { lng: -100.2877129, lat: 25.7245575 },
+          { lng: -100.2874125, lat: 25.7225084 },
+          { lng: -100.2880133, lat: 25.7223537 },
+          { lng: -100.2871121, lat: 25.7210778 },
+          { lng: -100.2945365, lat: 25.718216 },
+        ],
+      },
+      {
+        color: "#162aff",
+        coords: [
+            { lat: 25.688895, lng: -100.217216},
+        { lat: 25.684100, lng: -100.221679},
+        { lat: 25.681006, lng: -100.230263},
+        { lat: 25.672961, lng: -100.231292},
+        { lat: 25.663048, lng: -100.228223},
+        { lat: 25.656375, lng: -100.221185},
+        { lat: 25.648483, lng: -100.209340},
+        { lat: 25.652971, lng: -100.196809},
+        { lat: 25.658077, lng: -100.189942},
+        { lat: 25.667361, lng: -100.188054},
+        { lat: 25.677572, lng: -100.183591},
+        { lat: 25.687009, lng: -100.195264},
+        { lat: 25.690103, lng: -100.205392}
+        ],
+      },
+      {
+        color: "#00ff21",
+        coords: [
+            { lat: 25.694316, lng: -100.293160},
+       { lat: 25.678686, lng: -100.294799},
+       { lat: 25.668101, lng: -100.270217},
+       { lat: 25.669947, lng: -100.253693},
+       { lat: 25.674994, lng: -100.241129},
+       { lat: 25.674994, lng: -100.241129},
+       { lat: 25.674994, lng: -100.241129},
+       { lat: 25.698746, lng: -100.241539},
+       { lat: 25.709205, lng: -100.248640},
+       { lat: 25.712527, lng: -100.261068},
+        ],
+      },
+
+      {
+        color: "#6a00ff",
+        coords: [
+            { lat: 25.792529, lng: -100.334325 },
+        { lat: 25.808007, lng: -100.315336 },
+        { lat: 25.797611, lng: -100.248105 },
+        { lat: 25.775661, lng: -100.243999 },
+        { lat: 25.753938, lng: -100.269660 },
+        { lat: 25.740655, lng: -100.302887 },
+        { lat: 25.741599, lng: -100.324371 },
+        { lat: 25.755522, lng: -100.320179 },
+        { lat: 25.764488, lng: -100.323323 },
+        { lat: 25.764488, lng: -100.323323 },
+        ],
+      },
+
+      ,
+    ],
+  });
+};
+
+export const postLocations = async (req = request, res = response) => {
+  const { Name, lat, lng } = req.body;
+  const location = new Location({ Name, lat, lng });
+
+  try {
+    await location.save();
 
     res.json({
-        status:true,
-        total,
-        locations
+      msg: "Location added succesfully",
+      location,
     });
-    
-}
-
-export const postLocations =async (req = request, res = response) => {
-    
-    const {Name, lat, lng} = req.body;
-    const location = new Location({Name,lat,lng});
-
-    try {
-
-        await location.save();
-
-        res.json({
-            msg: "Location added succesfully",
-            location,
-        });
-        
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            status:false,
-            error
-        });
-    }
-    
-}
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      status: false,
+      error,
+    });
+  }
+};

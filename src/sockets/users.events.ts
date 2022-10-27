@@ -1,46 +1,36 @@
 import { Not } from "typeorm";
-import { User } from "../entities/user.entity"
+import { User } from "../entities/user.entity";
 
+export const userConnected = async (id: string) => {
+  const user = await User.findOne({ id });
 
+  if (!user) return null;
 
-export const userConnected = async ( id: string ) => {
-    
-    const user = await User.findOne({ id });
+  user.isOnline = true;
 
-    if ( ! user ) return null;
+  await user.save();
 
-    user.isOnline = true;
+  return user;
+};
 
-    await user.save();
+export const userDisconnected = async (id: string) => {
+  const user = await User.findOne({ id });
 
-    return user;
-}
+  if (!user) return null;
 
+  user.isOnline = false;
 
+  await user.save();
 
+  return user;
+};
 
-export const userDisconnected = async ( id: string ) => {
-    
-    const user = await User.findOne({ id });
+export const getAllUsers = async (id: string) => {
+  const users = await User.find({
+    order: {
+      isOnline: "DESC",
+    },
+  });
 
-    if ( ! user ) return null;
-
-    user.isOnline = false;
-
-    await user.save();
-
-    return user;
-}
-
-
-export const getAllUsers = async ( id: string ) => {
-
-    const users = await User.find({
-        order: {
-            isOnline: "DESC", 
-        }
-    });
-
-    return users;
-
-}
+  return users;
+};
